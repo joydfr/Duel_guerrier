@@ -13,7 +13,7 @@ namespace duelGuerrier.@class
         private bool SwordOfLight;
         public Warrior(string name, int pointOfLife, int nbOfAttac, View view) : base(name, pointOfLife, nbOfAttac,view)
         {
-            this.programview = view; // Initialisation de programview
+            this.programview = view; 
 
             Random random = new Random();
             SwordOfLight = random.Next(0, 3) == 0;
@@ -35,7 +35,7 @@ namespace duelGuerrier.@class
             {
                 if (!CanAttack())
                 {
-                    programview.MessageNoMoreAttacks(Name);  // Vous devrez ajouter cette méthode dans votre View
+                    programview.DisplayNoMoreAttacks(Name);
                     return 0;
                 }
                 Random ran = new Random();

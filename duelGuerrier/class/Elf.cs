@@ -21,7 +21,7 @@ namespace duelGuerrier.@class
         {
             if (!CanAttack())
             {
-                programview.MessageNoMoreAttacks(Name);  // Vous devrez ajouter cette méthode dans votre View
+                programview.DisplayNoMoreAttacks(Name);  // Vous devrez ajouter cette méthode dans votre View
                 return 0;
             }
             Random ran = new Random();

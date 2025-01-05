@@ -41,7 +41,7 @@ namespace duelGuerrier.@class
         {
             if (!CanAttack())
             {
-                _programmeEcran.MessageNoMoreAttacks(Name);  
+                _programmeEcran.DisplayNoMoreAttacks(Name);  
                 return 0;
             }
             Random ran = new Random();
