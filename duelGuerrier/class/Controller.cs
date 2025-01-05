@@ -73,9 +73,14 @@ namespace duelGuerrier.@class
                             HealthPointsValidated = true;
                         }
                         // si c'est non différent de "non" nous avons une contrainte utilisateur et un message d'alerte s'affiche
-                        else if (userChoice != "non")
+                        else if (userChoice == "non")
                         {
-                          _displayView.AlertYesNo();
+                            continue;
+                          
+                        }
+                        else
+                        {
+
                         }
 
                     }
@@ -121,7 +126,7 @@ namespace duelGuerrier.@class
             // je réasigne name en lui indiquant d'utiliser la fonction AskName();
             string name = AskName();
             // Je fais la même chose pour la vairable healthPoint 
-            int healthPoints = AskHealthPoints();
+            int healthPoints = AskHealthPoints(); 
             // je créer un aléatoire entre 10 et 21 pour la condition de limitation
             int numberAttack = new Random().Next(10, 21); 
             // j'initie une condition mon utilisateur saisit un nombre supérieur à 30 alors
@@ -129,11 +134,13 @@ namespace duelGuerrier.@class
             if (healthPoints >= 30)
             {
                 _displayView.DisplayNumberAttack(numberAttack);
+                Console.Clear();
             }
             // Dans le cas contraire numberAttack reprendra le nombre saisit dans la fonction AskNumberAttack()
             else
             {
                 numberAttack = AskNumberAttack();
+                Console.Clear();
             }
             // Je déclare une nouvelle variable afin de stocker un personnage j'appelle la class mère Character et je la déclare en premier lieu à null
             Character perso = null;
@@ -160,8 +167,11 @@ namespace duelGuerrier.@class
                 newWarriors.Add(perso);
                 // affichage que le personnage est bien créer 
                 _displayView.ShowSuccessesCreationPersonal(perso.Name);
+                Console.WriteLine(perso.SeeInfos());
             }
+            
         }
+            
         // création d'une function pour la gestion d'affichage de personnage créer 
         public void DisplayPersonal()
         {
@@ -202,7 +212,7 @@ namespace duelGuerrier.@class
             } while (warriorTwo == warriorOne);
 
             // je créer une variable list en string pour les déterminées les choix possible de mon futur mini-jeu 
-            string[] validChoices = { "Pierre", "Feuille", "Ciseaux" };
+            string[] validChoices = { "pierre", "feuille", "ciseaux" };
             // je créer une variable pour stocker le choix de mon guerrier 1
             string warriorOneChoice;
             // j'utilise une boucle while afin de rester dans mon mini jeu pierre, feuille  et ciseaux
@@ -213,14 +223,14 @@ namespace duelGuerrier.@class
                 {
                     // J'affiche le texte de mon mini jeu stocker dans ma vue 
                     _displayView.MessageMiniGame();
-                    // Je réaffecte ma variable warriorOneChoice en stockant ma réponse utilisateur 
-                    warriorOneChoice = Console.ReadLine();
+                    // Je réaffecte ma variable warriorOneChoice en stockant ma réponse utilisateur renforcement de la saisi utilisateur 
+                    warriorOneChoice = Console.ReadLine()?.Trim().ToLower() ?? string.Empty;
                     // Je créer une variable bool pour savoir si mon choix est valide qui me permettra de savoir si mes conditions sont rempli
                     bool isValidChoice = false;
                     // Je réalise un foreach pour savoir si le choix de mon utilisateur sont égale par rapport à ma list
                     foreach (string validChoice in validChoices)
                     {
-                        if (warriorOneChoice.ToLower() == validChoice.ToLower())
+                        if (warriorOneChoice == validChoice)
                         {
                             // si oui on sort de la condition 
                             isValidChoice = true;
@@ -253,23 +263,24 @@ namespace duelGuerrier.@class
                 // si les choix sont égaux alors j'utilise un random pour choisir le premier qui commencera 
             {
                 warriorOneStart = rand.Next(2) == 0;
-                _displayView.DisplayWarriorEqualityMiniGame(warriorOneStart);
+                string startingWarrior = warriorOneStart ? warriorOne.Name : warriorTwo.Name;
+                _displayView.DisplayWarriorEqualityMiniGame(startingWarrior);
             }
             // dans le else if je gére les conditions de combats selon ce que le joueur 1 à choisi
             else if (
-                (warriorOneChoice == "Pierre" && choiceGuerrier2 == "Ciseaux") ||
-                (warriorOneChoice == "Feuille" && choiceGuerrier2 == "Pierre") ||
-                (warriorOneChoice == "Ciseaux" && choiceGuerrier2 == "Papier")
+                (warriorOneChoice == "pierre" && choiceGuerrier2 == "ciseaux") ||
+                (warriorOneChoice == "feuille" && choiceGuerrier2 == "feuille") ||
+                (warriorOneChoice == "ciseaux" && choiceGuerrier2 == "feuille")
             )
             {
-                // si elle est vrai alors le joueurs un gagne 
-                _displayView.DisplayWarriorOneMiniGame(warriorOne.Name);
+                // si elle est vrai alors le joueurs deux gagne 
+                _displayView.DisplayWarriorTwoMiniGame(warriorTwo.Name);
                 warriorOneStart = true;
             }
             else
             {
-                // si c'est faux alors le joueurs deux gagne 
-                _displayView.DisplayWarriorTwoMiniGame(warriorTwo.Name);
+                // si c'est faux alors le joueurs un gagne 
+                _displayView.DisplayWarriorOneMiniGame(warriorOne.Name);
                 warriorOneStart = false;
             }
             // Le combat peut commencer et je rapelle les information de chaque joueur 
@@ -278,11 +289,11 @@ namespace duelGuerrier.@class
             // J'utilise une boucle while qui va me permettre de déterminer si les joueurs sont en vie ou si ils ont encore un nombre d'attaque
             while (warriorOne.IsAlive && warriorTwo.IsAlive)
             {
-             // avec la condition if je détermine si c'est au joueur 1 d'attaquer par rapport au mini jeu 
+                // avec la condition if je détermine si c'est au joueur 1 d'attaquer par rapport au mini jeu
                 if (warriorOneStart)
                 {
-                    // Utilisation d'un if pour vérifier si le joueur 1 a encore assez d'attaque
-                    // si oui il attaque et infilge des dégats au joueur 2 sinon un message nous indique qu'il n'a plus d'attaque 
+                    // Utilisation d'un if pour vérifier si le joueur 1 a encore assez d'attaques
+                    // si oui, il attaque et inflige des dégâts au joueur 2 sinon un message nous indique qu'il n'a plus d'attaques
                     if (warriorOne.CanAttack())
                     {
                         int damage = warriorOne.Tackle();
@@ -292,36 +303,34 @@ namespace duelGuerrier.@class
                     else
                     {
                         _displayView.DisplayNoMoreAttacks(warriorOne.Name);
-                        
-                        break;
                     }
-                    warriorOneStart = false;
-                    // Tread.sleep permet un temps de lecture pendant de le combat 
-                    Thread.Sleep(2000);
                 }
                 else
-                // Utilisation d'un if pour vérifier si le joueur 2 a encore assez d'attaque
-                // si oui il attaque et infilge des dégats au joueur 1 sinon un message nous indique qu'il n'a plus d'attaque 
                 {
+                    // Utilisation d'un if pour vérifier si le joueur 2 a encore assez d'attaques
+                    // si oui, il attaque et inflige des dégâts au joueur 1 sinon un message nous indique qu'il n'a plus d'attaques
                     if (warriorTwo.CanAttack())
                     {
                         int damage = warriorTwo.Tackle();
                         warriorOne.UndergoDamage(damage);
-                        _displayView.DisplayAttackWarriorTwo(warriorOne.Name, warriorTwo.Name, damage);
+                        _displayView.DisplayAttackWarriorTwo(warriorTwo.Name, warriorOne.Name, damage);
                     }
                     else
                     {
                         _displayView.DisplayNoMoreAttacks(warriorTwo.Name);
-                        // Optionnel : forcer la fin du combat si désiré
-                        break;
                     }
-                    warriorOneStart = true;
-                    Thread.Sleep(2000);
                 }
-                // affiche les points de vie et d'attaque à chaque boucle en retirant les dégats et diminue le nombre d'attaque 
+
+                // Alterne entre les deux joueurs
+                warriorOneStart = !warriorOneStart;
+
+                // Affiche les points de vie et le nombre d'attaque des guerriers après chaque tour
                 _displayView.LifePointMessage(warriorOne.SeeInfos(), warriorTwo.SeeInfos());
 
-                // Vérifier si les deux combattants sont à court d'attaques
+                // Tread.sleep permet un temps de lecture pendant le combat
+                Thread.Sleep(2000);
+
+                // Vérifie si les deux combattants sont à court d'attaques
                 if (!warriorOne.CanAttack() && !warriorTwo.CanAttack())
                 {
                     _displayView.DisplayBothOutOfAttacks();
@@ -329,32 +338,37 @@ namespace duelGuerrier.@class
                 }
             }
 
-            // Déterminer le vainqueur en fonction des points de vie restants
-            if (!warriorOne.IsAlive || (!warriorOne.CanAttack() && warriorTwo.PointOfLife > warriorOne.PointOfLife))
-            {
-                // si le nombre d'attaque est à zéro pour les deux joueurs mais que le joueur 2 à plus de point de vie il gange 
-                _displayView.DisplayIsAliveWarriorTwo(warriorTwo.Name, warriorOne.Name);
-            }
-            else if (!warriorTwo.IsAlive || (!warriorTwo.CanAttack() && warriorOne.PointOfLife > warriorTwo.PointOfLife))
-            {
-                // si le nombre d'attaque est à zéro pour les deux joueurs mais que le joueur 1 à plus de point de vie il gange 
-                _displayView.DisplayIsAliveWarriorOne(warriorTwo.Name, warriorOne.Name);
-            }
-            else
-            {
-                _displayView.DisplayDraw();  // Si ils ont tous les deux le même nombre de point de vie 
-            }
-            // Afficher le vainqueur
+            // Déterminer le vainqueur à la fin du combat
             if (!warriorOne.IsAlive)
             {
-                // si le joueur un n'a plus de point de vie alors le joueur 2 gagne le combat 
+                // Si le joueur 1 n'a plus de points de vie alors le joueur 2 gagne le combat
                 _displayView.DisplayIsAliveWarriorTwo(warriorTwo.Name, warriorOne.Name);
+            }
+            else if (!warriorTwo.IsAlive)
+            {
+                // Si le joueur 2 n'a plus de points de vie alors le joueur 1 gagne le combat
+                _displayView.DisplayIsAliveWarriorOne(warriorTwo.Name, warriorOne.Name);
             }
             else
             {
-                // si le joueur deux n'a plus de point de vie alors le joueur 1 gagne le combat
-                _displayView.DisplayIsAliveWarriorOne(warriorTwo.Name, warriorOne.Name);
+                // Si les deux guerriers sont vivants mais ne peuvent plus attaquer, déterminer selon les points de vie
+                if (warriorOne.PointOfLife > warriorTwo.PointOfLife)
+                {
+                    // Si le nombre d'attaques est à zéro pour les deux joueurs mais que le joueur 1 a plus de points de vie, il gagne
+                    _displayView.DisplayIsAliveWarriorOne(warriorTwo.Name, warriorOne.Name);
+                }
+                else if (warriorTwo.PointOfLife > warriorOne.PointOfLife)
+                {
+                    // Si le nombre d'attaques est à zéro pour les deux joueurs mais que le joueur 2 a plus de points de vie, il gagne
+                    _displayView.DisplayIsAliveWarriorTwo(warriorTwo.Name, warriorOne.Name);
+                }
+                else
+                {
+                    // Si les deux guerriers ont le même nombre de points de vie
+                    _displayView.DisplayDraw();
+                }
             }
+
             // rappel des fonctions reset() et ResetNumberOfAttack pour chaque joueur pour ne pas recommencer un nouveau combat avec des scores bas 
             warriorOne.Reset();
             warriorTwo.Reset();

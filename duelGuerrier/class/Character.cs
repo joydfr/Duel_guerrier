@@ -23,6 +23,7 @@ namespace duelGuerrier.@class
             // comme dans la classe mère la ligne me permet que d'inquer que la view ne peut être null sinon il lance une exception
             _programmeEcran = view ?? throw new ArgumentNullException(nameof(view));
             _initialPointOfLife = pointOfLife;
+            _initialNumberOfAttac = nbOfAttac;
         }
         // Les propriétés 
         public string Name { get; protected set; }

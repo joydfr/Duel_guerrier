@@ -43,16 +43,24 @@ namespace duelGuerrier.@class
         // Affichage des choix de roles des personnages
         public void Role()
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("\n" + new string('\u2550', 35));
             Console.WriteLine(" -1 Créer votre Challenger ! \n");
             Console.WriteLine("\n" + new string('\u2550', 35));
+            Console.ResetColor();
             Console.WriteLine("Veuillez choisir le rôle de votre personnage :\n");
             Console.WriteLine("1. Guerrier \n");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("Le guerrier peut avoir une épée qui infilgera +2 dégats\n");
+            Console.ResetColor();
             Console.WriteLine("2. Nain \n");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
             Console.WriteLine("Le nain peut avoir une armure qui réduira les dégats subit\n");
+            Console.ResetColor();
             Console.WriteLine("3. Elfe \n");
-            Console.WriteLine("L'elfe infligera toujours au moins 1 de dégats");
+            Console.ForegroundColor = ConsoleColor.DarkMagenta;
+            Console.WriteLine("L'elfe infligera toujours au moins 1 de dégats\n");
+            Console.ResetColor();
             Console.ForegroundColor= ConsoleColor.DarkRed;
             Console.WriteLine("0. retour au menu principal\n");
             Console.ResetColor();
@@ -86,6 +94,7 @@ namespace duelGuerrier.@class
         public void AskUserNumberOfAttack()
         {
             Console.WriteLine("Veuillez entrer votre nombre d'attaques (entre 10 et 30) :");
+            
         }
         // Message pour lancer le combat 
         public void MessageFightPersonal()
@@ -121,18 +130,23 @@ namespace duelGuerrier.@class
         // Message si les deux personnages n'ont plus d'attaque disponible chancun
         public void DisplayBothOutOfAttacks()
         {
+            Console.ForegroundColor= ConsoleColor.DarkGreen;
             Console.WriteLine("Les deux combattants sont à court d'attaques ! Le combat est terminé !");
+            Console.ResetColor();
         }
         // Message si les deux personnages n'ont plus d'attaques, ils seront départager par leurs points de vie restant si égalité de points de vie ce texte s'affiche.
         public void DisplayDraw()
         {
+            Console.ForegroundColor =ConsoleColor.DarkCyan;
             Console.WriteLine("Match nul ! Les deux combattants ont le même nombre de points de vie !");
         }
         //------------------------------------------ Message Class Character------------------------------------------------------------------
         //Affiche les dégats infligés lors d'une attaque 
         public void MessageTackle(int damage,string name)
         {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"les dégats de {name} sont de {damage} ");
+            Console.ResetColor();
         }
         // Affiche les dégats subit lors d'une attaque 
         public void MessageUndergoDamage(string name, int newPointOfLife)
@@ -143,7 +157,9 @@ namespace duelGuerrier.@class
         // Message qui s'affichera si à la création le nain à une armure 
         public void MessageHeavyTrue(string nameWarrior)
         {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"{nameWarrior} a une armure lourde.");
+            Console.ResetColor();
         }
         // Message qui s'affichera si à la création le nain n'a pas d'armure 
         public void MessageHeavyFalse(string nameWarrior)
@@ -153,13 +169,17 @@ namespace duelGuerrier.@class
         // Message qui s'affichera lors d'un combat si le nain à une armure 
         public void MessageUndergoDamageHeavy(string name,int newPointOfLife)
         {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"{name} Grâce à votre armure lourde, vos points de vie sont de {newPointOfLife}.");
+            Console.ResetColor();
         }
         // ---------------------------------------------------message Class Warrior-----------------------------------------------------------
         // Message à la création d'un guerrier si il a une épée de lumière 
         public void MessageSwordOfLightTrue(string name)
         {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"{name} a une épée de lumière qui plus permet d'infligé +2 dégats.");
+            Console.ResetColor();
         }
         // Message à la création d'un guerrier si il n'a pas d'épée de lumière 
         public void MessageSwordOfLightFalse(string name)
@@ -169,7 +189,9 @@ namespace duelGuerrier.@class
         // Message lors d'un combat si le guerrier à l'épée de lumière montre les nouveaux dégats infilgé
         public void TackleSwordofLight(string name,int damage, int newDamage)
         {
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
             Console.WriteLine($"les dégats de {name} sont de {damage} mais grâce à votre épée de lumière les dégats sont {newDamage} ");
+            Console.ResetColor();
         }
 
         
@@ -226,6 +248,7 @@ namespace duelGuerrier.@class
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("Entrée invalide, veuillez entrer un nombre compris entre 10 et 50.");
             Console.ResetColor();
+            Console.Clear();
         }
         // Alerte si l'utilisateur saisit un nombre d'attaque non compris entre 10 et 30
         public void AlertNumberAttackNotBetween()
@@ -279,11 +302,11 @@ namespace duelGuerrier.@class
             Console.WriteLine($"{warriorTwo} choisit : {choiceWarriortwo}");
         }
         // Message si égalité lors du mini jeu pierre, feuille et ciseaux 
-        public void DisplayWarriorEqualityMiniGame(bool warriorOneStart)
+        public void DisplayWarriorEqualityMiniGame(string startingWarrior)
         {
             Console.WriteLine("Égalité ! Le départ sera choisi aléatoirement.");
             Console.ForegroundColor= ConsoleColor.DarkGreen;
-            Console.WriteLine($"c'est à {warriorOneStart} de commencer");
+            Console.WriteLine($"c'est à {startingWarrior} de commencer");
             Console.ResetColor();
         }
         // Message du joueur 1 s'il gagne au  mini jeu pierre, feuille et ciseaux 

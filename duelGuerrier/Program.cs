@@ -51,6 +51,7 @@ namespace duelGuerrier.@class
                                 // contrainte utilisateur géré avec un if pour que si l'utilisateur saisi autre chose qu'un nombre, le message d'erreur s'affiche 
                                 if (!int.TryParse(Console.ReadLine(), out int playerCharacterChoice))
                                 {
+                                    Console.Clear();
                                     displayScreen.AlertSeizurePlayerCharacterChoice();
                                     continue;
                                 }
@@ -59,19 +60,23 @@ namespace duelGuerrier.@class
                                 switch (playerCharacterChoice)
                                 {
                                     case 0:
+                                        Console.Clear();
                                         Console.WriteLine("Retour au menu principal.");
                                         // remise de la variable à true pour sortir et retourner au menu principal 
                                         goBackToMenu = true;
                                         break;
                                     case 1:
+                                        Console.Clear();
                                         Console.WriteLine("Vous avez choisi : Guerrier.");
                                         controller.CreationPersonnal("guerrier");
                                         break;
                                     case 2:
+                                        Console.Clear();
                                         Console.WriteLine("Vous avez choisi : Nain.");
                                         controller.CreationPersonnal("nain");
                                         break;
                                     case 3:
+                                        Console.Clear();
                                         Console.WriteLine("Vous avez choisi : Elfe.");
                                         controller.CreationPersonnal("elfe");
                                         break;
