@@ -19,7 +19,7 @@ namespace duelGuerrier.@class
         
         // Attribut pour rappeller la view afin d'appeller les fonctions de message dans la view.  
         
-        private  View programview;
+        private View programview;
         public Dwarf(string nameWarrior, int pointOfLife, int nbOfAttac, View view) : base(nameWarrior, pointOfLife, nbOfAttac, view)
         {
             
@@ -31,7 +31,7 @@ namespace duelGuerrier.@class
             
             Random random = new Random();
             
-            //// J'ai décidé que l'armure aurait une chance sur deux : si c'est 0, il n'y a pas d'armure, et si c'est 1, il y a une armure.
+            //J'ai décidé que l'armure aurait une chance sur deux : si c'est 0, il n'y a pas d'armure, et si c'est 1, il y a une armure.
            
             HeavyArmor = random.Next(0, 2) == 0; 
 
