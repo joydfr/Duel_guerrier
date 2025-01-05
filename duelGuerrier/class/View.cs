@@ -176,7 +176,14 @@ namespace duelGuerrier.@class
       
         // ---------------------------------------------Fonctions Message D'alerte------------------------------------------------------------ 
        // ----------------------------------------------Alerte du controller----------------------------------------------------------
-       // Message d'alerte s'il n'y a pas de personnage créer dans le menu d'affichage
+        public void AlerteNameNone()
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("Le nom ne peut pas être vide. Veuillez réessayer.");
+            Console.ResetColor();
+        }
+        
+        // Message d'alerte s'il n'y a pas de personnage créer dans le menu d'affichage
         public void MessageAlertNoneCharacter()
         {
             Console.ForegroundColor = ConsoleColor.Red;
@@ -266,7 +273,7 @@ namespace duelGuerrier.@class
             Console.ResetColor();
         }
         // Message pour indiquer les choix de chacun des joueurs du mini jeu pierre, feuille et ciseaux 
-        public void DisplayWarriorMiniGame(string warriorOne,string warriorTwo, string choiceWarriorOne,string choiceWarriortwo)
+        public void DisplayMiniGameResults(string warriorOne,string warriorTwo, string choiceWarriorOne,string choiceWarriortwo)
         {
             Console.WriteLine($"{warriorOne} choisit : {choiceWarriorOne}");
             Console.WriteLine($"{warriorTwo} choisit : {choiceWarriortwo}");

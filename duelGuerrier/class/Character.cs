@@ -34,7 +34,7 @@ namespace duelGuerrier.@class
             PointOfLife = _initialPointOfLife;
         }
         // La fonction Reset me permet de remettre le nombre d'attaque à ce qu'à saisit l'utilisateur lors de la création à la fin d'un combat
-        public void ResestNumberOfAttack()
+        public void ResetNumberOfAttacks()
         {
             NbOfAttac = _initialNumberOfAttac;
         }
