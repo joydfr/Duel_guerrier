@@ -14,20 +14,27 @@ namespace duelGuerrier.@class
     internal class Dwarf : Character
     {
         // Attribut pour indiquer si le nain possède une armure lourde, spécifique à sa classe 
+       
         private bool HeavyArmor;
-        // Attribut pour rappeller la view afin d'appeller les fonctions de message dans la view.
-        // Utilisation de readonly pour éviter que le comportement ne soit altéré accidentellement.
-        private readonly View programview;
+        
+        // Attribut pour rappeller la view afin d'appeller les fonctions de message dans la view.  
+        
+        private  View programview;
         public Dwarf(string nameWarrior, int pointOfLife, int nbOfAttac, View view) : base(nameWarrior, pointOfLife, nbOfAttac, view)
         {
+            
+            // dans le constructeur j'affecte la vue afin de pouvoir rappeller mes fonctions message dans la vue 
+           
+            programview = view;
+            
             // Afin d'éviter des personnages trop fort j'ai rendu l'armure lourde en un choix aléatoire en utilisant un random
+            
             Random random = new Random();
+            
             //// J'ai décidé que l'armure aurait une chance sur deux : si c'est 0, il n'y a pas d'armure, et si c'est 1, il y a une armure.
-            HeavyArmor = random.Next(0, 1) == 0; 
+           
+            HeavyArmor = random.Next(0, 2) == 0; 
 
-            // comme le paramètre du constructeur View est extérieur et que je l'ai assigné en private j'utilise 'this' pour stocker la référence de la class Nain 
-            // cela me permet de l'utiliser ultérieurement et d'afficher mes messages de la view
-            this.programview = view;
             // je réalise une condition avec un if/else selon si mon nain à une armure ou non et j'affiche le message correpondant.
                 if (HeavyArmor)
                 {
@@ -44,6 +51,7 @@ namespace duelGuerrier.@class
         {
             // Je réalise une nouvelle condition avec un if/else pour indiquer que si mon nain a une armure,
             // alors les dégâts subis seront divisés par deux. Dans le cas contraire, le comportement hérité de Character reste inchangé.
+           
             if (HeavyArmor)
             {
                 int newPointOfLife = PointOfLife - damage / 2;
