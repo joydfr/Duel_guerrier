@@ -131,7 +131,7 @@ namespace duelGuerrier.@class
 
             foreach (var personnage in nouveauxGuerriers)
             {
-                Console.WriteLine(personnage.ToString());
+                Console.WriteLine(personnage.SeeInfos());
 
             }
         }
